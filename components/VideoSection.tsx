@@ -98,10 +98,10 @@ const VideoSection = forwardRef<VideoSectionHandle>(function VideoSection(_props
                       className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                     />
                   ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-brand-greenBright/30 via-brand-blue/20 to-brand-red/10" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-pinkBright/30 via-brand-blue/20 to-brand-pink/10" />
                   )}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="h-14 w-14 rounded-full bg-white/10 backdrop-blur border border-white/30 flex items-center justify-center shadow-glow group-hover:scale-110 transition">
+                    <span className="h-14 w-14 rounded-full bg-white/10 backdrop-blur border border-white/30 flex items-center justify-center shadow-glowPink group-hover:scale-110 transition">
                       <PlayIcon className="h-6 w-6 translate-x-0.5 text-white" />
                     </span>
                   </div>

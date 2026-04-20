@@ -46,8 +46,8 @@ export default function EmailForm({
 
   if (status === 'success') {
     return (
-      <div className={`flex items-center gap-3 rounded-xl border border-brand-green/30 bg-brand-green/10 px-4 py-3 text-sm ${compact ? '' : 'max-w-md'}`}>
-        <span className="h-8 w-8 rounded-full bg-brand-greenBright/20 text-brand-greenBright flex items-center justify-center">
+      <div className={`flex items-center gap-3 rounded-2xl border border-brand-pink/30 bg-brand-pink/10 px-4 py-3 text-sm ${compact ? '' : 'max-w-md'}`}>
+        <span className="h-8 w-8 rounded-full bg-brand-pinkBright/20 text-brand-pinkBright flex items-center justify-center">
           <CheckIcon className="h-4 w-4" />
         </span>
         <span className="text-white/90">{message}</span>
@@ -64,7 +64,7 @@ export default function EmailForm({
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder={placeholder}
-          className="flex-1 rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none placeholder:text-white/40 focus:border-brand-greenBright/60 focus:bg-white/10 transition"
+          className="flex-1 rounded-full bg-white/5 border border-white/10 px-5 py-3 text-sm outline-none placeholder:text-white/40 focus:border-brand-pinkBright/60 focus:bg-white/10 transition"
           autoComplete="email"
         />
         <button

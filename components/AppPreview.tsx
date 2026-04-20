@@ -6,9 +6,9 @@ import {
 } from './PhoneMockups';
 
 const tabs = [
-  { key: 'discover', label: 'Discovery', render: () => <DiscoveryScreen /> },
+  { key: 'discover', label: 'Discover', render: () => <DiscoveryScreen /> },
   { key: 'feed', label: 'Feed', render: () => <FeedScreen /> },
-  { key: 'network', label: 'Network', render: () => <NetworkScreen /> },
+  { key: 'network', label: 'Circle', render: () => <NetworkScreen /> },
   { key: 'chat', label: 'Chat', render: () => <ChatScreen /> },
   { key: 'profile', label: 'Profile', render: () => <ProfileScreen /> },
 ] as const;
@@ -26,11 +26,11 @@ export default function AppPreview() {
           <div className="max-w-2xl">
             <div className="pill mb-4">App preview</div>
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
-              A real app, built for how traders actually connect.
+              Built for how traders actually make friends.
             </h2>
             <p className="mt-4 text-white/60 text-lg">
-              Swipe, post, DM, and build your circle. Here&apos;s what the experience
-              will feel like on day one.
+              Swipe through traders nearby, DM the ones you match with, and keep
+              your closest circle close. Here&apos;s what it feels like.
             </p>
           </div>
 
@@ -55,7 +55,7 @@ export default function AppPreview() {
         {/* Main phone showcase: one featured + grid of smaller screens */}
         <div className="grid lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-5 flex justify-center">
-            <PhoneFrame className="shadow-glow">
+            <PhoneFrame className="shadow-glowPink">
               {current.render()}
             </PhoneFrame>
           </div>
@@ -81,11 +81,11 @@ export default function AppPreview() {
                     <div>
                       <div className="text-sm font-semibold">{t.label}</div>
                       <div className="text-xs text-white/50 mt-0.5">
-                        {t.key === 'discover' && 'Find traders near you'}
-                        {t.key === 'feed' && 'Public trading feed'}
+                        {t.key === 'discover' && 'Swipe through traders nearby'}
+                        {t.key === 'feed' && 'See who\u2019s meeting up'}
                         {t.key === 'network' && 'Your private circle'}
                         {t.key === 'chat' && 'DMs & group threads'}
-                        {t.key === 'profile' && 'Your trader identity'}
+                        {t.key === 'profile' && 'Your trader profile'}
                       </div>
                     </div>
                   </button>

@@ -2,19 +2,15 @@ import React from 'react';
 
 type Props = { className?: string };
 
-// Inline SVG icon set — no external dependency, tree-shakes cleanly, and matches the app's rounded aesthetic.
+// Brand mark — uses the uploaded bull-vs-bear logo from /public/logo.png.
+// Falls back to a subtle ring if the image is missing.
 export const LogoMark = ({ className = 'h-8 w-8' }: Props) => (
-  <svg viewBox="0 0 40 40" className={className} fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-    <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#g1)" stroke="rgba(255,255,255,0.08)" />
-    <path d="M10 26 L16 18 L22 22 L30 12" stroke="#0A0B0F" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-    <circle cx="30" cy="12" r="2.5" fill="#0A0B0F" />
-    <defs>
-      <linearGradient id="g1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#22E39B" />
-        <stop offset="1" stopColor="#10B981" />
-      </linearGradient>
-    </defs>
-  </svg>
+  // eslint-disable-next-line @next/next/no-img-element
+  <img
+    src="/logo.png"
+    alt="Niche Network"
+    className={`${className} rounded-xl object-cover`}
+  />
 );
 
 export const MapPinIcon = ({ className = 'h-5 w-5' }: Props) => (

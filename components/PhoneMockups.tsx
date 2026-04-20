@@ -3,8 +3,8 @@
 import React from 'react';
 import {
   MapPinIcon, UsersIcon, FeedIcon, LockIcon, ChatIcon, FilterIcon,
-  TrendUp, TrendDown, HeartIcon, CommentIcon, ShareIcon, SearchIcon,
-  SendIcon, XIcon, CheckIcon, BellIcon,
+  HeartIcon, CommentIcon, ShareIcon, SearchIcon,
+  SendIcon, XIcon, BellIcon,
 } from './icons';
 
 // ------------------------------------------------------------------
@@ -38,68 +38,107 @@ function StatusBar() {
   );
 }
 
+// Re-usable avatar with a warm gradient background.
+function Avatar({
+  initials,
+  size = 'md',
+  gradient = 'from-brand-pinkBright to-brand-blue',
+}: {
+  initials: string;
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  gradient?: string;
+}) {
+  const sizes: Record<string, string> = {
+    sm: 'h-8 w-8 text-[11px] rounded-xl',
+    md: 'h-10 w-10 text-xs rounded-2xl',
+    lg: 'h-14 w-14 text-base rounded-2xl',
+    xl: 'h-20 w-20 text-2xl rounded-3xl',
+  };
+  return (
+    <div
+      className={`${sizes[size]} bg-gradient-to-br ${gradient} flex items-center justify-center font-bold text-black`}
+    >
+      {initials}
+    </div>
+  );
+}
+
 // ------------------------------------------------------------------
-// DISCOVERY SCREEN — swipe-style card, but social (not dating).
+// DISCOVERY SCREEN — Tinder-style profile card for traders.
+// Only profile pic, name, age, city, niche, experience, short bio.
+// No PnL, no win-rates, no charts.
 // ------------------------------------------------------------------
 export function DiscoveryScreen() {
   return (
     <div className="h-full flex flex-col bg-bg">
       {/* header */}
-      <div className="flex items-center justify-between px-4 pt-3 pb-3">
-        <div className="flex items-center gap-2">
-          <FilterIcon className="h-4 w-4 text-white/70" />
-          <span className="text-xs text-white/70">Within 25 mi</span>
-        </div>
+      <div className="flex items-center justify-between px-4 pt-3 pb-2">
+        <FilterIcon className="h-4 w-4 text-white/70" />
         <div className="text-sm font-semibold">Discover</div>
         <BellIcon className="h-4 w-4 text-white/70" />
       </div>
 
-      {/* trader card */}
+      {/* filter chips */}
+      <div className="px-3 pb-2 flex gap-1.5 overflow-x-auto no-scrollbar">
+        <span className="pill !py-1 !px-2 text-[10px] !bg-brand-pink/15 !border-brand-pink/30 !text-brand-pinkBright whitespace-nowrap">
+          Ages 19–25
+        </span>
+        <span className="pill !py-1 !px-2 text-[10px] !bg-brand-pink/15 !border-brand-pink/30 !text-brand-pinkBright whitespace-nowrap">
+          Los Angeles
+        </span>
+        <span className="pill !py-1 !px-2 text-[10px] !bg-brand-pink/15 !border-brand-pink/30 !text-brand-pinkBright whitespace-nowrap">
+          Futures
+        </span>
+      </div>
+
+      {/* trader profile card */}
       <div className="px-4 flex-1">
-        <div className="relative h-full rounded-3xl overflow-hidden border border-line bg-gradient-to-b from-[#1B1E26] to-[#0E1014]">
-          {/* avatar area */}
-          <div className="h-[55%] bg-gradient-to-br from-brand-blue/30 via-brand-green/20 to-transparent relative">
-            <div className="absolute inset-0 grid-bg opacity-40" />
-            <div className="absolute top-3 left-3 flex gap-1.5">
-              <span className="pill !py-1 !px-2 text-[10px]">
+        <div className="relative h-full rounded-[28px] overflow-hidden border border-line bg-gradient-to-b from-[#1E1620] to-[#0E1014] shadow-glowPink">
+          {/* photo area */}
+          <div className="h-[58%] bg-gradient-to-br from-brand-pinkBright/40 via-brand-blue/20 to-transparent relative flex items-end">
+            <div className="absolute inset-0 grid-bg opacity-30" />
+            <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
+              <span className="pill !py-1 !px-2 text-[10px] !bg-black/40 !border-white/15">
                 <span className="h-1.5 w-1.5 rounded-full bg-brand-greenBright" /> Online
               </span>
-              <span className="pill !py-1 !px-2 text-[10px]">
+              <span className="pill !py-1 !px-2 text-[10px] !bg-black/40 !border-white/15">
                 <MapPinIcon className="h-3 w-3" /> 2.4 mi
               </span>
             </div>
-            {/* miniature avatar */}
-            <div className="absolute bottom-3 left-4 flex items-center gap-3">
-              <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-brand-greenBright to-brand-blue flex items-center justify-center text-lg font-bold text-black">
-                MA
-              </div>
-              <div>
-                <div className="text-sm font-semibold">Maya A.</div>
-                <div className="text-[11px] text-white/60">Options · Swing · 4y exp.</div>
-              </div>
+            <div className="relative p-4 pb-3 w-full">
+              <Avatar initials="JO" size="xl" gradient="from-brand-pinkBright to-brand-blue" />
             </div>
           </div>
 
           {/* body */}
-          <div className="p-3 space-y-2">
-            <div className="flex flex-wrap gap-1.5">
-              <span className="pill !py-1 !px-2 text-[10px]">$SPY</span>
-              <span className="pill !py-1 !px-2 text-[10px]">$NVDA</span>
-              <span className="pill !py-1 !px-2 text-[10px]">Macro</span>
-              <span className="pill !py-1 !px-2 text-[10px]">Futures</span>
+          <div className="px-4 pt-3 pb-20 space-y-2">
+            <div className="flex items-end gap-1.5">
+              <div className="text-lg font-bold leading-none">Jordan</div>
+              <div className="text-lg font-semibold text-white/70 leading-none">21</div>
             </div>
-            <p className="text-[11px] text-white/70 line-clamp-2">
-              Looking for other NYC traders to swap setups on Sunday mornings. Mostly options flows + macro.
+            <div className="text-[11px] text-white/60 flex items-center gap-1">
+              <MapPinIcon className="h-3 w-3" /> Los Angeles, CA
+            </div>
+            <div className="flex flex-wrap gap-1.5 pt-0.5">
+              <span className="pill !py-1 !px-2 text-[10px] !bg-brand-pink/10 !border-brand-pink/25 !text-brand-pinkBright">
+                Futures
+              </span>
+              <span className="pill !py-1 !px-2 text-[10px]">
+                Trading for 2 years
+              </span>
+            </div>
+            <p className="text-[11px] text-white/75 leading-snug pt-1">
+              Looking to build a trading group with people in my area. I trade NQ futures.
             </p>
           </div>
 
           {/* action buttons */}
-          <div className="absolute bottom-3 right-3 flex items-center gap-3">
-            <button className="h-10 w-10 rounded-full bg-bg-elevated border border-line flex items-center justify-center text-brand-redBright">
+          <div className="absolute bottom-4 left-0 right-0 flex items-center justify-center gap-5">
+            <button className="h-12 w-12 rounded-full bg-bg-elevated border border-line flex items-center justify-center text-white/70">
               <XIcon className="h-5 w-5" />
             </button>
-            <button className="h-12 w-12 rounded-full bg-gradient-to-br from-brand-greenBright to-brand-green flex items-center justify-center text-black shadow-glow">
-              <CheckIcon className="h-6 w-6" />
+            <button className="h-14 w-14 rounded-full bg-gradient-to-br from-brand-pinkBright to-brand-pink flex items-center justify-center text-white shadow-glowPink">
+              <HeartIcon className="h-6 w-6" />
             </button>
           </div>
         </div>
@@ -112,7 +151,7 @@ export function DiscoveryScreen() {
 }
 
 // ------------------------------------------------------------------
-// PUBLIC FEED SCREEN
+// PUBLIC FEED SCREEN — social posts (meetups, intros, group chats).
 // ------------------------------------------------------------------
 export function FeedScreen() {
   return (
@@ -125,44 +164,47 @@ export function FeedScreen() {
         </div>
       </div>
 
-      <div className="px-3 flex gap-2 pb-2 overflow-x-auto">
-        {['For you', 'Equities', 'Options', 'Futures', 'Crypto'].map((t, i) => (
+      <div className="px-3 flex gap-2 pb-2 overflow-x-auto no-scrollbar">
+        {['For you', 'Nearby', 'Futures', 'Options', 'Crypto'].map((t, i) => (
           <span
             key={t}
-            className={`pill text-[10px] whitespace-nowrap ${i === 0 ? '!bg-white/10 !border-white/20' : ''}`}
+            className={`pill text-[10px] whitespace-nowrap ${i === 0 ? '!bg-brand-pink/15 !border-brand-pink/30 !text-brand-pinkBright' : ''}`}
           >
             {t}
           </span>
         ))}
       </div>
 
-      <div className="flex-1 overflow-y-auto px-3 pb-3 space-y-2">
+      <div className="flex-1 overflow-y-auto px-3 pb-3 space-y-2 no-scrollbar">
         <FeedPost
           initials="JR"
           name="Jamie R."
+          city="Los Angeles, CA"
           time="3m"
-          text="Breaking out of 4h compression on $NVDA. Watching 1,020 as the trigger."
-          pnl="+$2,480"
-          up
-          likes={128}
-          comments={24}
+          text="Any NQ futures traders in LA wanna meet up for coffee this weekend? Thinking Saturday morning in Santa Monica."
+          likes={84}
+          comments={22}
+          gradient="from-brand-pinkBright to-brand-blue"
         />
         <FeedPost
           initials="AK"
           name="Alex K."
-          time="12m"
-          text="Getting stopped out on my $TSLA puts. Discipline > conviction today."
-          pnl="-$310"
-          likes={48}
-          comments={9}
+          city="Austin, TX"
+          time="18m"
+          text="New to the app 👋 22, trading options for a year. Looking to make friends who take this seriously."
+          likes={131}
+          comments={47}
+          gradient="from-brand-blue to-brand-pinkBright"
         />
         <FeedPost
           initials="SM"
           name="Sara M."
-          time="48m"
-          text="Anyone else building a watchlist around AI infra names this week? Sharing mine in my group."
-          likes={212}
-          comments={56}
+          city="Miami, FL"
+          time="1h"
+          text="Starting a small group chat for crypto traders in South Florida. Reply here if you want an invite 🌴"
+          likes={208}
+          comments={63}
+          gradient="from-brand-greenBright to-brand-blue"
         />
       </div>
 
@@ -172,29 +214,21 @@ export function FeedScreen() {
 }
 
 function FeedPost({
-  initials, name, time, text, pnl, up, likes, comments,
+  initials, name, city, time, text, likes, comments, gradient,
 }: {
-  initials: string; name: string; time: string; text: string;
-  pnl?: string; up?: boolean; likes: number; comments: number;
+  initials: string; name: string; city: string; time: string; text: string;
+  likes: number; comments: number; gradient: string;
 }) {
   return (
     <div className="rounded-2xl border border-line bg-bg-card p-3">
       <div className="flex items-center gap-2">
-        <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-brand-blue to-brand-greenBright flex items-center justify-center text-[11px] font-bold text-black">
-          {initials}
-        </div>
+        <Avatar initials={initials} size="sm" gradient={gradient} />
         <div className="flex-1">
           <div className="text-[12px] font-semibold leading-tight">{name}</div>
-          <div className="text-[10px] text-white/50">Trader · {time}</div>
+          <div className="text-[10px] text-white/50 flex items-center gap-1">
+            <MapPinIcon className="h-2.5 w-2.5" /> {city} · {time}
+          </div>
         </div>
-        {pnl && (
-          <span
-            className={`pill !py-0.5 !px-2 text-[10px] ${up ? '!text-brand-greenBright !bg-brand-green/10 !border-brand-green/20' : '!text-brand-redBright !bg-brand-red/10 !border-brand-red/20'}`}
-          >
-            {up ? <TrendUp className="h-3 w-3" /> : <TrendDown className="h-3 w-3" />}
-            {pnl}
-          </span>
-        )}
       </div>
       <p className="text-[12px] text-white/80 mt-2 leading-snug">{text}</p>
       <div className="mt-2 flex items-center gap-3 text-[10px] text-white/50">
@@ -207,23 +241,30 @@ function FeedPost({
 }
 
 // ------------------------------------------------------------------
-// NETWORK (private) FEED SCREEN
+// MY CIRCLE SCREEN — private group of people you've connected with.
 // ------------------------------------------------------------------
 export function NetworkScreen() {
   return (
     <div className="h-full flex flex-col bg-bg">
       <div className="px-4 pt-3 pb-2 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <LockIcon className="h-4 w-4 text-brand-greenBright" />
-          <div className="text-sm font-semibold">My Network</div>
+          <LockIcon className="h-4 w-4 text-brand-pinkBright" />
+          <div className="text-sm font-semibold">My Circle</div>
         </div>
-        <span className="pill !py-0.5 !px-2 text-[10px]">12 traders</span>
+        <span className="pill !py-0.5 !px-2 text-[10px]">12 friends</span>
       </div>
 
-      <div className="px-3 pb-2 flex gap-2 overflow-x-auto">
-        {['Maya', 'Jamie', 'Alex', 'Sara', 'Dev', 'Lin'].map((n, i) => (
+      <div className="px-3 pb-2 flex gap-2 overflow-x-auto no-scrollbar">
+        {[
+          { n: 'Maya', g: 'from-brand-pinkBright to-brand-blue' },
+          { n: 'Jamie', g: 'from-brand-blue to-brand-pinkBright' },
+          { n: 'Alex', g: 'from-brand-pink to-brand-pinkBright' },
+          { n: 'Sara', g: 'from-brand-greenBright to-brand-blue' },
+          { n: 'Dev', g: 'from-brand-pinkBright to-brand-greenBright' },
+          { n: 'Lin', g: 'from-brand-blue to-brand-pink' },
+        ].map(({ n, g }) => (
           <div key={n} className="shrink-0 flex flex-col items-center gap-1">
-            <div className={`h-10 w-10 rounded-full flex items-center justify-center text-[11px] font-bold text-black bg-gradient-to-br ${['from-brand-greenBright to-brand-green','from-brand-blue to-brand-greenBright','from-brand-redBright to-brand-red','from-white to-white/70','from-brand-greenBright to-brand-blue','from-brand-blue to-brand-redBright'][i]}`}>
+            <div className={`h-11 w-11 rounded-full flex items-center justify-center text-[11px] font-bold text-black bg-gradient-to-br ${g}`}>
               {n[0]}
             </div>
             <span className="text-[9px] text-white/60">{n}</span>
@@ -231,31 +272,35 @@ export function NetworkScreen() {
         ))}
       </div>
 
-      <div className="flex-1 overflow-y-auto px-3 pb-3 space-y-2">
-        <div className="rounded-2xl border border-brand-green/30 bg-brand-green/5 p-3">
+      <div className="flex-1 overflow-y-auto px-3 pb-3 space-y-2 no-scrollbar">
+        <div className="rounded-2xl border border-brand-pink/30 bg-brand-pink/5 p-3">
           <div className="flex items-center gap-2">
-            <div className="h-7 w-7 rounded-lg bg-brand-green/30 flex items-center justify-center">
-              <UsersIcon className="h-4 w-4 text-brand-greenBright" />
+            <div className="h-7 w-7 rounded-lg bg-brand-pink/20 flex items-center justify-center">
+              <UsersIcon className="h-4 w-4 text-brand-pinkBright" />
             </div>
-            <div className="text-[12px] font-semibold">3 new posts in your groups</div>
+            <div className="text-[12px] font-semibold">3 new posts from your circle</div>
           </div>
         </div>
 
         <FeedPost
           initials="DV"
           name="Dev V."
+          city="Los Angeles, CA"
           time="5m"
-          text="Group idea: weekly call at 9pm ET to review each other's setups. Who's in?"
+          text="Anyone down to grab dinner Friday night? Thinking of starting a weekly thing with the LA futures crew."
           likes={9}
           comments={4}
+          gradient="from-brand-pinkBright to-brand-greenBright"
         />
         <FeedPost
           initials="LI"
           name="Lin C."
+          city="Brooklyn, NY"
           time="1h"
-          text="Sharing my options Greeks cheatsheet with the network — link in chat 🔒"
+          text="Just added two new people to our options group chat — say hi when you get a sec 👋"
           likes={22}
           comments={11}
+          gradient="from-brand-blue to-brand-pink"
         />
       </div>
 
@@ -265,29 +310,28 @@ export function NetworkScreen() {
 }
 
 // ------------------------------------------------------------------
-// CHAT SCREEN
+// CHAT SCREEN — conversational, about meeting up.
 // ------------------------------------------------------------------
 export function ChatScreen() {
   return (
     <div className="h-full flex flex-col bg-bg">
       {/* header */}
       <div className="px-4 pt-3 pb-3 flex items-center gap-3 border-b border-line/60">
-        <div className="h-8 w-8 rounded-full bg-gradient-to-br from-brand-blue to-brand-greenBright flex items-center justify-center text-[11px] font-bold text-black">
-          MA
-        </div>
+        <Avatar initials="MA" size="sm" gradient="from-brand-pinkBright to-brand-blue" />
         <div className="flex-1">
           <div className="text-sm font-semibold leading-tight">Maya A.</div>
-          <div className="text-[10px] text-brand-greenBright">Online now</div>
+          <div className="text-[10px] text-brand-pinkBright">Online now</div>
         </div>
       </div>
 
       {/* messages */}
-      <div className="flex-1 overflow-y-auto px-3 py-3 space-y-2 text-[12px]">
-        <Bubble from="them">Hey! Saw your post on $NVDA — that setup looks clean.</Bubble>
-        <Bubble from="me">Thanks! Watching 1,020 as the trigger today.</Bubble>
-        <Bubble from="them">Same zone I had on my chart. Mind if I share yours with my group?</Bubble>
-        <Bubble from="me">Go for it 🙌</Bubble>
-        <Bubble from="them">Wanna grab coffee this weekend? Couple of us meet at the Brooklyn one.</Bubble>
+      <div className="flex-1 overflow-y-auto px-3 py-3 space-y-2 text-[12px] no-scrollbar">
+        <Bubble from="them">Hey! Saw your profile — also trading futures in LA 🙌</Bubble>
+        <Bubble from="me">No way, that's awesome. How long have you been at it?</Bubble>
+        <Bubble from="them">About 3 years. You?</Bubble>
+        <Bubble from="me">Almost 2. Would love to meet other people doing it seriously.</Bubble>
+        <Bubble from="them">Same! A few of us grab coffee Saturday mornings in Santa Monica. Wanna come?</Bubble>
+        <Bubble from="me">I'm in 🙌</Bubble>
       </div>
 
       {/* input */}
@@ -295,7 +339,7 @@ export function ChatScreen() {
         <div className="flex-1 rounded-full bg-bg-elevated border border-line px-3 py-2 text-[11px] text-white/60">
           Message Maya…
         </div>
-        <button className="h-9 w-9 rounded-full bg-brand-greenBright flex items-center justify-center text-black">
+        <button className="h-9 w-9 rounded-full bg-gradient-to-br from-brand-pinkBright to-brand-pink flex items-center justify-center text-white">
           <SendIcon className="h-4 w-4" />
         </button>
       </div>
@@ -309,7 +353,7 @@ function Bubble({ from, children }: { from: 'me' | 'them'; children: React.React
       <div
         className={`max-w-[78%] px-3 py-2 rounded-2xl leading-snug ${
           from === 'me'
-            ? 'bg-brand-greenBright text-black rounded-br-sm'
+            ? 'bg-gradient-to-br from-brand-pinkBright to-brand-pink text-white rounded-br-sm'
             : 'bg-bg-elevated border border-line text-white rounded-bl-sm'
         }`}
       >
@@ -320,45 +364,45 @@ function Bubble({ from, children }: { from: 'me' | 'them'; children: React.React
 }
 
 // ------------------------------------------------------------------
-// PROFILE SCREEN
+// PROFILE SCREEN — Friends / Groups / Posts. No PnL.
 // ------------------------------------------------------------------
 export function ProfileScreen() {
   return (
     <div className="h-full flex flex-col bg-bg">
       {/* Gradient header */}
-      <div className="h-24 bg-gradient-to-br from-brand-greenBright/30 via-brand-blue/20 to-brand-red/10 relative">
+      <div className="h-24 bg-gradient-to-br from-brand-pinkBright/40 via-brand-blue/20 to-brand-pink/10 relative">
         <div className="absolute inset-0 grid-bg opacity-30" />
       </div>
       <div className="-mt-10 px-4">
-        <div className="h-20 w-20 rounded-2xl border-4 border-bg bg-gradient-to-br from-brand-greenBright to-brand-blue flex items-center justify-center text-2xl font-bold text-black">
-          JH
-        </div>
+        <Avatar initials="JH" size="xl" gradient="from-brand-pinkBright to-brand-blue" />
         <div className="mt-2">
-          <div className="text-base font-semibold">Jordan H.</div>
-          <div className="text-[11px] text-white/60 flex items-center gap-1">
-            <MapPinIcon className="h-3 w-3" /> Austin, TX · 3y trading
+          <div className="flex items-end gap-1.5">
+            <div className="text-base font-semibold leading-none">Jordan H.</div>
+            <div className="text-sm font-medium text-white/60 leading-none">21</div>
+          </div>
+          <div className="text-[11px] text-white/60 flex items-center gap-1 mt-1">
+            <MapPinIcon className="h-3 w-3" /> Los Angeles, CA · Trading for 2 years
           </div>
         </div>
         <div className="mt-2 flex flex-wrap gap-1.5">
+          <span className="pill !py-1 !px-2 text-[10px] !bg-brand-pink/10 !border-brand-pink/25 !text-brand-pinkBright">Futures</span>
           <span className="pill !py-1 !px-2 text-[10px]">Options</span>
-          <span className="pill !py-1 !px-2 text-[10px]">Momentum</span>
-          <span className="pill !py-1 !px-2 text-[10px]">$SPY</span>
-          <span className="pill !py-1 !px-2 text-[10px]">$TSLA</span>
+          <span className="pill !py-1 !px-2 text-[10px]">Day trading</span>
         </div>
       </div>
 
       <div className="mt-3 px-4 grid grid-cols-3 gap-2 text-center text-[10px]">
-        <div className="rounded-xl bg-bg-card border border-line py-2">
+        <div className="rounded-2xl bg-bg-card border border-line py-2">
           <div className="text-sm font-bold">148</div>
-          <div className="text-white/50">Connections</div>
+          <div className="text-white/50">Friends</div>
         </div>
-        <div className="rounded-xl bg-bg-card border border-line py-2">
-          <div className="text-sm font-bold text-brand-greenBright">+12.4%</div>
-          <div className="text-white/50">YTD shared</div>
+        <div className="rounded-2xl bg-bg-card border border-line py-2">
+          <div className="text-sm font-bold">6</div>
+          <div className="text-white/50">Groups</div>
         </div>
-        <div className="rounded-xl bg-bg-card border border-line py-2">
+        <div className="rounded-2xl bg-bg-card border border-line py-2">
           <div className="text-sm font-bold">38</div>
-          <div className="text-white/50">Ideas</div>
+          <div className="text-white/50">Posts</div>
         </div>
       </div>
 
@@ -366,8 +410,8 @@ export function ProfileScreen() {
         <div className="rounded-2xl border border-line bg-bg-card p-3">
           <div className="text-[11px] text-white/70 font-semibold">About</div>
           <p className="text-[11px] text-white/60 mt-1 leading-snug">
-            Full-time trader focused on US equities and options. Love talking macro
-            and sharing setups. Open to meetups in Austin.
+            Looking to build a trading group with people in my area. I trade NQ
+            futures. Always down to grab coffee and talk shop.
           </p>
         </div>
       </div>
@@ -384,11 +428,11 @@ export function ProfileScreen() {
 // ------------------------------------------------------------------
 function BottomNav({ active }: { active: 'discover' | 'feed' | 'network' | 'chat' | 'profile' }) {
   const items: { key: typeof active; icon: React.ReactNode; label: string }[] = [
-    { key: 'discover', icon: <MapPinIcon className="h-4 w-4" />, label: 'Discover' },
+    { key: 'discover', icon: <HeartIcon className="h-4 w-4" />, label: 'Discover' },
     { key: 'feed', icon: <FeedIcon className="h-4 w-4" />, label: 'Feed' },
-    { key: 'network', icon: <UsersIcon className="h-4 w-4" />, label: 'Network' },
+    { key: 'network', icon: <UsersIcon className="h-4 w-4" />, label: 'Circle' },
     { key: 'chat', icon: <ChatIcon className="h-4 w-4" />, label: 'Chats' },
-    { key: 'profile', icon: <div className="h-4 w-4 rounded-full bg-gradient-to-br from-brand-greenBright to-brand-blue" />, label: 'Me' },
+    { key: 'profile', icon: <div className="h-4 w-4 rounded-full bg-gradient-to-br from-brand-pinkBright to-brand-blue" />, label: 'Me' },
   ];
   return (
     <div className="border-t border-line/60 bg-bg-soft/95 backdrop-blur px-2 py-2 flex justify-between items-center">
@@ -396,7 +440,7 @@ function BottomNav({ active }: { active: 'discover' | 'feed' | 'network' | 'chat
         <div
           key={it.key}
           className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg ${
-            active === it.key ? 'text-brand-greenBright bg-brand-green/5' : 'text-white/50'
+            active === it.key ? 'text-brand-pinkBright bg-brand-pink/5' : 'text-white/50'
           }`}
         >
           {it.icon}
