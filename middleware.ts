@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { SESSION_COOKIE } from './lib/auth';
 
-// Belt-and-suspenders: the /admin page already does a server-side auth check
-// and redirects, but middleware bounces unauthenticated requests before any
-// admin component code runs. The actual session validity is checked inside
-// the Route Handlers as well — middleware just catches the obvious case of
-// "no cookie at all".
+// Middleware runs on Next.js's Edge runtime, which can't load Node built-ins
+// like crypto/fs/path. So we do NOT import lib/auth here — we just inline the
+// cookie name. The actual session validity is re-checked inside every admin
+// Route Handler, which runs on the Node runtime and can use lib/auth safely.
+const SESSION_COOKIE = 'nn_admin_session';
+
 export function middleware(req: NextRequest) {
   const url = req.nextUrl;
   if (url.pathname === '/admin' || url.pathname.startsWith('/admin/')) {
