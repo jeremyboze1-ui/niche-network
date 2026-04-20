@@ -17,12 +17,14 @@ const config: Config = {
           elevated: '#1B1E26',
         },
         brand: {
-          green: '#10B981',   // bullish green
+          green: '#10B981',
           greenBright: '#22E39B',
-          red: '#EF4444',     // bearish red
+          red: '#EF4444',
           redBright: '#FF5C5C',
-          blue: '#3B82F6',    // accent blue
+          blue: '#3B82F6',
           blueBright: '#60A5FA',
+          pink: '#F04E8E',       // social/tinder primary
+          pinkBright: '#FF5FA2', // brighter accent
         },
         line: '#262A33',
       },
@@ -34,6 +36,7 @@ const config: Config = {
       boxShadow: {
         glow: '0 0 40px rgba(34, 227, 155, 0.25)',
         glowBlue: '0 0 40px rgba(59, 130, 246, 0.3)',
+        glowPink: '0 10px 40px rgba(255, 95, 162, 0.28)',
         card: '0 8px 28px rgba(0,0,0,0.4)',
       },
       borderRadius: {
